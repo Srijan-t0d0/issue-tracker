@@ -1,12 +1,10 @@
-import IssueStatusBadge from "@/app/components/IssueStatusBadge";
+import { IssueStatusBadge } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import delay from "delay";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
-  await delay(3000);
   const id = parseInt(params.id);
 
   if (typeof id !== "number" || isNaN(id)) notFound();
