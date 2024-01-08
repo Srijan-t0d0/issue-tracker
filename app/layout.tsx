@@ -7,6 +7,7 @@ import "@radix-ui/themes/styles.css";
 import NavBar from "./NavBar";
 import { Theme } from "@radix-ui/themes";
 import { Metadata } from "next";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,8 +28,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.variable}>
         <Theme appearance="light" accentColor="violet" radius="large">
-          <NavBar />
-          <main className="p-5">{children}</main>
+          <SkeletonTheme baseColor="grey" highlightColor="#444">
+            <NavBar />
+            <main className="p-5">{children}</main>
+          </SkeletonTheme>
         </Theme>
       </body>
     </html>
