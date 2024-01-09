@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 
 import "@radix-ui/themes/styles.css";
 import NavBar from "./NavBar";
-import { Container, Theme } from "@radix-ui/themes";
+import { Container, Theme, ThemePanel } from "@radix-ui/themes";
 import { Metadata } from "next";
 import { SkeletonTheme } from "react-loading-skeleton";
 import AuthProvider from "./auth/Provider";
@@ -27,10 +27,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>
+      <body className={`${inter.variable} dark`}>
         <AuthProvider>
-          <Theme appearance="light" accentColor="violet" radius="large">
-            <SkeletonTheme baseColor="grey" highlightColor="#444">
+          <Theme
+            appearance="dark"
+            accentColor="teal"
+            grayColor="gray"
+            radius="large"
+            scaling="110%"
+          >
+            <SkeletonTheme baseColor="#2c2c2c" highlightColor="#cccccc">
               <NavBar />
               <main className="p-5">
                 <Container>{children}</Container>
