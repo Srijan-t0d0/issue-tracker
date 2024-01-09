@@ -1,73 +1,8 @@
-"use client";
-import dynamic from "next/dynamic";
-import "easymde/dist/easymde.min.css";
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
-import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createIssueSchema } from "@/app/validationSchemas";
-import { z } from "zod";
-import { ErrorMessage, Spinner } from "@/app/components";
+import React from "react";
+import IssueForm from "@/app/issues/_components/IssueForm";
 
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
-
-type IssueForm = z.infer<typeof createIssueSchema>;
-
-const NewIssuePage = () => {
-  const router = useRouter();
-  const [IsSubmitting, setIsSubmitting] = useState(false);
-  const [Error, setError] = useState("");
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IssueForm>({
-    resolver: zodResolver(createIssueSchema),
-  });
-  return (
-    <div className="max-w-xl space-y-3 ">
-      {Error && (
-        <Callout.Root color="red" className="mb-5">
-          <Callout.Text>{Error}</Callout.Text>
-        </Callout.Root>
-      )}
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setIsSubmitting(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setError("An unexpected error occurred.");
-          }
-        })}
-      >
-        <TextField.Root>
-          <TextField.Input {...register("title")} placeholder="Title" />
-        </TextField.Root>
-        <ErrorMessage>{errors.title?.message}</ErrorMessage>
-        <Controller
-          name="description"
-          control={control}
-          render={({ field }) => (
-            <SimpleMDE placeholder="Description..." {...field} />
-          )}
-        />
-
-        <ErrorMessage>{errors.description?.message}</ErrorMessage>
-
-        <Button disabled={IsSubmitting}>
-          Submit New Issue
-          {IsSubmitting && <Spinner />}
-        </Button>
-      </form>
-    </div>
-  );
+const NewIssuePage = ({ params: { id } }: { params: { id: string } }) => {
+  return <IssueForm />;
 };
 
 export default NewIssuePage;
