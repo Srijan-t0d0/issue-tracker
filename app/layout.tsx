@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 
 import "@radix-ui/themes/styles.css";
 import NavBar from "./NavBar";
-import { Theme } from "@radix-ui/themes";
+import { Container, Theme } from "@radix-ui/themes";
 import { Metadata } from "next";
 import { SkeletonTheme } from "react-loading-skeleton";
 
@@ -30,7 +30,9 @@ export default function RootLayout({
         <Theme appearance="light" accentColor="violet" radius="large">
           <SkeletonTheme baseColor="grey" highlightColor="#444">
             <NavBar />
-            <main className="p-5">{children}</main>
+            <main className="p-5">
+              <Container>{children}</Container>
+            </main>
           </SkeletonTheme>
         </Theme>
       </body>
