@@ -1,5 +1,12 @@
 "use client";
-import { Box, Container, Flex } from "@radix-ui/themes";
+import {
+  Text,
+  Avatar,
+  Box,
+  Container,
+  DropdownMenu,
+  Flex,
+} from "@radix-ui/themes";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,7 +49,26 @@ const NavBar = () => {
           </Flex>
           <Box>
             {status === "authenticated" && (
-              <Link href={"/api/auth/signout"}>Log out</Link>
+              //
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                  <Avatar
+                    className="cursor-pointer"
+                    size={"2"}
+                    radius="full"
+                    src={Sesson.user!.image!}
+                    fallback="avatar"
+                  />
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content>
+                  <DropdownMenu.Label>
+                    <Text size={"2"}> {Sesson.user!.email!}</Text>
+                  </DropdownMenu.Label>
+                  <DropdownMenu.Item>
+                    <Link href={"/api/auth/signout"}>Log out</Link>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
             )}
             {status === "unauthenticated" && (
               <Link href={"/api/auth/signin"}>Login</Link>
