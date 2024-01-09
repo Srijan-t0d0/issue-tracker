@@ -11,11 +11,13 @@ const LoadingIssuePage = () => {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
+            <Table.ColumnHeaderCell className="w-[125px] ">
+              Issue
+            </Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className=" hidden md:w-[75px]  md:table-cell">
               Status
             </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
+            <Table.ColumnHeaderCell className="hidden  md:w-[70px] md:table-cell">
               CreatedAt
             </Table.ColumnHeaderCell>
           </Table.Row>
@@ -25,11 +27,11 @@ const LoadingIssuePage = () => {
             <Table.Row key={issue}>
               <TableCell>
                 <Skeleton />
-                <div className="block md:hidden">
+                <div className=" md:hidden">
                   <Skeleton />
                 </div>
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell className="hidden md:table-cell ">
                 <Skeleton />
               </TableCell>
               <TableCell className="hidden md:table-cell">
