@@ -3,18 +3,14 @@ import { ErrorMessage, Spinner } from "@/app/components";
 import { IssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Box, Button, Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
 
 type IssueFormData = z.infer<typeof IssueSchema>;
 
@@ -31,13 +27,14 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     resolver: zodResolver(IssueSchema),
   });
   return (
-    <div className="max-w-xl space-y-3 ">
+    <Box className="max-w-xl space-y-3 ">
       {Error && (
         <Callout.Root color="red" className="mb-5">
           <Callout.Text>{Error}</Callout.Text>
         </Callout.Root>
       )}
       <form
+        className="max-w-xl "
         onSubmit={handleSubmit(async (data) => {
           try {
             setIsSubmitting(true);
@@ -50,7 +47,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           }
         })}
       >
-        <TextField.Root>
+        <TextField.Root mb={"3"}>
           <TextField.Input
             defaultValue={issue?.title}
             {...register("title")}
@@ -74,7 +71,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           {IsSubmitting && <Spinner />}
         </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 
