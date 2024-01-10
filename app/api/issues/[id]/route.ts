@@ -9,8 +9,8 @@ export async function PATCH(
   { params: { id } }: { params: { id: string } }
 ) {
   //validating signin
-  // const sesson = await getServerSession(authOptions);
-  // if (!sesson) return NextResponse.json({}, { status: 401 });
+  const sesson = await getServerSession(authOptions);
+  if (!sesson) return NextResponse.json({}, { status: 401 });
   //validating reqbody
   const body = await req.json();
   const validation = PatchIssueSchema.safeParse(body);
