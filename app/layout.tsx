@@ -1,13 +1,14 @@
 import "@radix-ui/themes/styles.css";
-import "./theme-config.css";
-import "./globals.css";
 import { Inter } from "next/font/google";
+import "./globals.css";
+import "./theme-config.css";
 
+import { Container, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import NavBar from "./NavBar";
-import { Container, Theme, ThemePanel } from "@radix-ui/themes";
 import { Metadata } from "next";
 import { SkeletonTheme } from "react-loading-skeleton";
+import NavBar from "./NavBar";
+import QueryClientProvider from "./QueryClientProvider";
 import AuthProvider from "./auth/Provider";
 
 const inter = Inter({
@@ -28,22 +29,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} dark`}>
-        <AuthProvider>
-          <Theme
-            appearance="dark"
-            accentColor="teal"
-            grayColor="gray"
-            radius="large"
-            scaling="110%"
-          >
-            <SkeletonTheme baseColor="#2c2c2c" highlightColor="#cccccc">
-              <NavBar />
-              <main className="p-5">
-                <Container>{children}</Container>
-              </main>
-            </SkeletonTheme>
-          </Theme>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme
+              appearance="dark"
+              accentColor="teal"
+              grayColor="gray"
+              radius="large"
+              scaling="110%"
+            >
+              <SkeletonTheme baseColor="#2c2c2c" highlightColor="#cccccc">
+                <NavBar />
+                <main className="p-5">
+                  <Container>{children}</Container>
+                </main>
+              </SkeletonTheme>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
