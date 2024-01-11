@@ -12,7 +12,6 @@ const LatestIssues = async () => {
       assignedToUser: true,
     },
   });
-  console.log(latestIssues);
 
   return (
     <Card>
