@@ -10,19 +10,18 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data: users, error, isLoading } = useUsers();
   if (error) return null;
 
-  const assignIssue = () => {
-    (userId: string) => {
-      axios
-        .patch("/api/issues/" + issue.id, {
-          assignedToUserId: userId === "Unassigned" ? null : userId,
+  const assignIssue = (userId: string) => {
+    axios
+      .patch("/api/issues/" + issue.id, {
+        assignedToUserId: userId === "Unassigned" ? null : userId,
+      })
+      .catch(() =>
+        toast.error("Changes Could not be saved", {
+          style: { backgroundColor: "#7F3030", color: "white" },
         })
-        .catch(() =>
-          toast.error("Changes Could not be saved", {
-            style: { backgroundColor: "#7F3030", color: "white" },
-          })
-        );
-    };
+      );
   };
+
   if (isLoading) return <Skeleton />;
   return (
     <>
