@@ -4,6 +4,7 @@ import IssueSummery from "./IssueSummery";
 import LatestIssues from "./LatestIssues";
 import IssueCharts from "./IssueCharts";
 import { Flex, Grid } from "@radix-ui/themes";
+import { Metadata } from "next";
 
 export default async function Home() {
   const statusCounts = await prisma.issue.groupBy({
@@ -34,3 +35,11 @@ export default async function Home() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  openGraph: {
+    title: "HIi different website - Custom Open Graph Title",
+  },
+  title: "Issue Tracker - Dashboard",
+  description: "View a summary of projects",
+};
